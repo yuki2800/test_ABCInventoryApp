@@ -1,0 +1,11 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    restart: no
+    environment:
+      - NODE_ENV=production
+    container_name: abc-inventory-app

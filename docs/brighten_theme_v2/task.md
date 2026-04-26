@@ -1,0 +1,8 @@
+- [x] globals.css で `primary` カラーパレットを定義 (Cyanベース)
+- [x] SidebarNav.tsx の配色を変数（primary-）に置換
+- [x] Header.tsx の配色を変数（primary-）に置換
+- [x] page.tsx (Dashboard) の配色を変数（primary-）に置換
+- [x] master/page.tsx の配色を変数（primary-）に置換
+- [x] master/products/page.tsx の配色を変数（primary-）に置換
+- [x] master/warehouses/page.tsx の配色を変数（primary-）に置換
+- [x] 動作確認

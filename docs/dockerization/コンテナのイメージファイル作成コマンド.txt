@@ -1,0 +1,1 @@
+docker save -o test_app_container.tar abc_inventory_system-app:latest

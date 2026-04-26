@@ -1,0 +1,7 @@
+- [x] globals.css のシャドウカラー更新
+- [x] SidebarNav.tsx の配色変更 (blue -> teal)
+- [x] Header.tsx のアクセントカラー変更 (blue -> teal)
+- [x] page.tsx (Dashboard) の配色変更 (blue -> teal)
+- [x] master/products/page.tsx の配色変更 (blue -> teal)
+- [x] master/warehouses/page.tsx の配色統一 (emerald/teal -> teal)
+- [x] 動作確認・微調整

@@ -1,0 +1,5 @@
+- [x] next.config.ts に `output: 'standalone'` を追加
+- [x] .dockerignore の作成
+- [x] Dockerfile の作成 (マルチステージビルド)
+- [x] docker-compose.yml の作成
+- [x] 設定ファイルの検証
