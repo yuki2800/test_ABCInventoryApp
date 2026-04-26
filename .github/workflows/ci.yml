@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    name: 型チェック・Lint・テスト
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Node.js のセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 依存パッケージのインストール
+        run: npm ci
+
+      - name: 型チェック (tsc --noEmit)
+        run: npm run type-check
+
+      - name: Lint (ESLint)
+        run: npm run lint
+
+      - name: ユニットテスト (Vitest)
+        run: npm run test
+
+  build:
+    name: ビルド確認
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Node.js のセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 依存パッケージのインストール
+        run: npm ci
+
+      - name: Next.js ビルド
+        run: npm run build
