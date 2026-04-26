@@ -15,10 +15,12 @@ export abstract class Product {
   // ドメイン駆動設計（DDD）の強み：
   // 業務ルール（ビジネスロジック）をエンティティ自身が持つことで凝集性を高める
   // 製品カテゴリごとに受入（入庫）時の検証ルールが異なる
-  abstract validateReceipt(quantity: number, additionalInfo?: Record<string, unknown>): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  abstract validateReceipt(quantity: number, additionalInfo?: any): void;
 
   // 払出（出庫）時の検証ルール
-  abstract validateIssue(quantity: number, currentStock: number, additionalInfo?: Record<string, unknown>): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  abstract validateIssue(quantity: number, currentStock: number, additionalInfo?: any): void;
 }
 
 export class StandardProduct extends Product {

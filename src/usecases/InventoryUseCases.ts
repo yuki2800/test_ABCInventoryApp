@@ -31,7 +31,7 @@ export class InventoryUseCases {
     productId: string, 
     warehouseId: string, 
     quantity: number, 
-    additionalInfo?: Record<string, unknown>
+    additionalInfo?: { expirationDate?: string }
   ) {
     const product = await this.productRepo.findById(productId);
     if (!product) throw new Error('製品が見つかりません。');
@@ -61,7 +61,7 @@ export class InventoryUseCases {
     productId: string, 
     warehouseId: string, 
     quantity: number, 
-    additionalInfo?: Record<string, unknown>
+    additionalInfo?: { hasSafetyApproval?: boolean }
   ) {
     const product = await this.productRepo.findById(productId);
     if (!product) throw new Error('製品が見つかりません。');
