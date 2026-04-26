@@ -53,23 +53,20 @@ const navItems = [
   },
 ];
 
-export default function SidebarNav() {
-  const pathname = usePathname();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [expandedItems, setExpandedItems] = useState<string[]>(['/master']);
+type SidebarContentProps = {
+  pathname: string;
+  expandedItems: string[];
+  toggleExpand: (href: string) => void;
+  onLinkClick: () => void;
+};
 
-  const toggleExpand = (href: string) => {
-    setExpandedItems(prev =>
-      prev.includes(href) ? prev.filter(h => h !== href) : [...prev, href]
-    );
-  };
-
+function SidebarContent({ pathname, expandedItems, toggleExpand, onLinkClick }: SidebarContentProps) {
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/';
     return pathname.startsWith(href);
   };
 
-  const SidebarContent = () => (
+  return (
     <div className="flex flex-col h-full">
       {/* Logo area */}
       <div className="px-4 py-4 border-b border-primary-900">
@@ -120,7 +117,7 @@ export default function SidebarNav() {
                       <Link
                         key={child.href}
                         href={child.href}
-                        onClick={() => setMobileOpen(false)}
+                        onClick={onLinkClick}
                         className={`flex items-center gap-2 pl-10 pr-4 py-2 text-sm transition-colors ${
                           pathname === child.href
                             ? 'bg-primary-800 text-white font-medium border-l-4 border-primary-400'
@@ -137,7 +134,7 @@ export default function SidebarNav() {
             ) : (
               <Link
                 href={item.href}
-                onClick={() => setMobileOpen(false)}
+                onClick={onLinkClick}
                 className={`flex items-center gap-2.5 px-4 py-2.5 text-sm font-medium transition-colors ${
                   isActive(item.href)
                     ? 'bg-primary-900 text-white border-l-4 border-primary-400'
@@ -171,6 +168,20 @@ export default function SidebarNav() {
       </div>
     </div>
   );
+}
+
+export default function SidebarNav() {
+  const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [expandedItems, setExpandedItems] = useState<string[]>(['/master']);
+
+  const toggleExpand = (href: string) => {
+    setExpandedItems(prev =>
+      prev.includes(href) ? prev.filter(h => h !== href) : [...prev, href]
+    );
+  };
+
+  const closeMobile = () => setMobileOpen(false);
 
   return (
     <>
@@ -178,7 +189,7 @@ export default function SidebarNav() {
       {mobileOpen && (
         <div
           className="fixed inset-0 bg-black/60 z-30 lg:hidden"
-          onClick={() => setMobileOpen(false)}
+          onClick={closeMobile}
         />
       )}
 
@@ -201,12 +212,22 @@ export default function SidebarNav() {
 
       {/* Desktop sidebar */}
       <aside className="hidden lg:flex flex-col w-56 shrink-0 bg-primary-950 min-h-screen sticky top-0 h-screen overflow-hidden">
-        <SidebarContent />
+        <SidebarContent
+          pathname={pathname}
+          expandedItems={expandedItems}
+          toggleExpand={toggleExpand}
+          onLinkClick={closeMobile}
+        />
       </aside>
 
       {/* Mobile sidebar */}
       <aside className={`lg:hidden fixed left-0 top-0 h-full w-56 z-40 bg-primary-950 transform transition-transform duration-300 ease-in-out ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <SidebarContent />
+        <SidebarContent
+          pathname={pathname}
+          expandedItems={expandedItems}
+          toggleExpand={toggleExpand}
+          onLinkClick={closeMobile}
+        />
       </aside>
     </>
   );

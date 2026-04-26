@@ -7,8 +7,8 @@ export class MasterDataController {
     try {
       const data = await this.masterDataUseCases.getAllProducts();
       return { success: true, data };
-    } catch (error: any) {
-      return { success: false, error: error.message };
+    } catch (error: unknown) {
+      return { success: false, error: (error as Error).message };
     }
   }
 
@@ -16,8 +16,8 @@ export class MasterDataController {
     try {
       const data = await this.masterDataUseCases.getAllWarehouses();
       return { success: true, data };
-    } catch (error: any) {
-      return { success: false, error: error.message };
+    } catch (error: unknown) {
+      return { success: false, error: (error as Error).message };
     }
   }
 }

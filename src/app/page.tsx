@@ -52,6 +52,7 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadData();
   }, []);
 
@@ -72,7 +73,7 @@ export default function Dashboard() {
     
     // Categorize extra info based on product category
     const product = products.find(p => p.id === selectedProduct);
-    let body: any = { productId: selectedProduct, warehouseId: selectedWarehouse, quantity };
+    const body: { productId: string; warehouseId: string; quantity: number; expirationDate?: string; hasSafetyApproval?: boolean } = { productId: selectedProduct, warehouseId: selectedWarehouse, quantity };
     
     if (product?.category === 'PERISHABLE' && modalType === 'RECEIVE') {
       body.expirationDate = extraInfo;
